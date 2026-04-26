@@ -28,6 +28,10 @@ def get_db():
     finally:
         db.close()
 
+@app.get("/")
+def home():
+    return {"message": "Home Page"}        
+
 
 # GET all temples
 @app.get("/temples")
