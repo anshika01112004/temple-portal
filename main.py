@@ -20,13 +20,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# DB dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+@app.get("/")
+def home():
+    return {
+        "message": "🛕 India Temple API is Live",
+        "status": "working",
+        "docs": "/docs"
+    }
 
 @app.get("/")
 def home():
