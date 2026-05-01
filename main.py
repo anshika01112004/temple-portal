@@ -7,6 +7,20 @@ from models import Temple
 from schemas import TempleCreate, TempleUpdate
 
 app = FastAPI()
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+@app.get("/")
+def home():
+    return {
+        "message": "🛕 India Temple API is Live",
+        "status": "working",
+        "docs": "/docs"
+    }
 
 # Create tables
 Base.metadata.create_all(bind=engine)
@@ -18,19 +32,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-)
-
-@app.get("/")
-def home():
-    return {
-        "message": "🛕 India Temple API is Live",
-        "status": "working",
-        "docs": "/docs"
-    }
-
-@app.get("/")
-def home():
-    return {"message": "Home Page"}        
+)   
 
 
 # GET all temples
